@@ -1,0 +1,21 @@
+.project-card-deck .card {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.project-card {
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    transition: transform .2s;
+}
+
+.project-card:hover {
+    transform: scale(1.1);
+}
+
+.project-card span.name {
+    color: var(--globus-light-blue);
+    font-size: 1.2em;
+    font-weight: 500;
+}
