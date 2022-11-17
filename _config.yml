@@ -24,7 +24,8 @@ description: >- # this means to ignore newlines until "baseurl:"
       AICCA delivers the information from multi-spectral images in a compact form, enables data-driven diagnosis of patterns of cloud organization, provides
       insight into cloud evolution on timescales of hours to decades, and helps democratize climate research by facilitating access to core data.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://aicca.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "AICCA-explorer" # the base hostname & protocol for your site, e.g. http://example.com
+#url: "https://aicca.io" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
 #github_username:  jekyll
 
