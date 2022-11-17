@@ -1,0 +1,60 @@
+:root {
+    --carousel-height: 400px;
+    --blur: 32px;
+    --blur-scale: 1.5;
+}
+
+
+.carousel-parent {
+    position: relative;
+    height: var(--carousel-height);
+    width: 100%;
+}
+
+.carousel-bg {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    
+    /* Enable the blur filter */
+    filter: blur(var(--blur));
+    -webkit-filter: blur(var(--blur));
+    transform: scale(var(--blur-scale));
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.carousel-img {
+    max-height: var(--carousel-height);
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.carousel-text {
+    color: white !important;
+    text-shadow:
+        0px 4px  8px rgba(0, 0, 0, 1),
+        0px 2px 16px rgba(0, 0, 0, 1),
+        0px 1px 32px rgba(0, 0, 0, 1),
+        0px 0px 64px rgba(0, 0, 0, 1);
+}
+
+h1.carousel-text, h2.carousel-text, h3.carousel-text, 
+h4.carousel-text, h5.carousel-text, h6.carousel-text {
+    font-family: museosans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
