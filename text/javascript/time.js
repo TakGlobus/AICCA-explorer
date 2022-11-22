@@ -94,25 +94,252 @@ window.onload = function () {
     return layer;
   };
 
-  const closer = document.getElementById('popup-closer');
-  closer.onclick = function () {
-  overlay.setPosition(undefined);
-  closer.blur();
-  return false;
-  };
+  /*
+      Create marker icon
+  */
+  var iconStyle = new ol.style.Style({
+      image: new ol.style.Icon({
+          anchor: [0.5, 50],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'pixels',
+          opacity: 0.75,
+          src: 'images/marker.png'
+      }),
+      text: new ol.style.Text({
+          font: '12px Arial',
+          fill: new ol.style.Fill({ color: '#000' }),
+          stroke: new ol.style.Stroke({
+              color: '#fff', width: 2
+          }),
+          text: 'New marker text'
+      })
+  });
+  /*
+    Create map source
+  */
+ /*
+    Create Icon
+  */
+  var lon = 21.002902;
+  var lat = 52.228850;
+  var MarkerIcon = new ol.Feature({
+      geometry: new ol.geom.Point(ol.proj.fromLonLat([lon,lat])),
+      name: 'Marker text',
+      desc: '<label>Details</label> <br> Latitude: ' + lat + ' Longitude: ' + lon
+  })
+  // Add icon style
+  MarkerIcon.setStyle(new ol.style.Style({
+      image: new ol.style.Icon({
+          anchor: [0.5, 50],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'pixels',
+          src: 'images/marker.png'
+          // ,scale: 0.4
+      })
+  }));
+  var MapSource = new ol.source.Vector({
+      features: [
+      ]
+  })
+  // Create map layer
+  var MapLayer = new ol.layer.Vector({
+      source: MapSource
+  });
+  // Set layer z-index
+  MapLayer.setZIndex(999);
+  // Add marker to layer
+  map.addLayer(MapLayer);
 
-  const content = document.getElementById('popup-content');
-  map.on('singleclick', function (evt) {
-    const coordinate = evt.coordinate;
-    const hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
+  /*
+      Events
+  */
+  //map.on('dblclick', function(evt)
+  map.on('singleclick', function(evt)
+  {
+      var coordinatePretty = ol.coordinate.toStringHDMS(ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'), 2);
+      var coordinate = ol.proj.toLonLat(evt.coordinate);
+
+      console.log("Clicked at position: ", coordinatePretty, coordinate);
+      console.log("Clicked at position: ", evt.coordinate);
+
+      // Clear markers source
+      MapSource.clear();
+
+      // Add point
+      var f = new ol.Feature({
+          // From lon, lat
+          // new ol.geom.Point(ol.proj.fromLonLat([4.35247, 50.84673])),
+          // From event
+          geometry: new ol.geom.Point(evt.coordinate),
+          name: 'Marker text',
+          desc: '<label>Details</label> <br> Latitude: ' + coordinate[1].toFixed(6) + ' Longitude: ' + coordinate[0].toFixed(6)
+      });
+      f.setStyle(iconStyle);
+
+      // Add to source
+      MapSource.addFeature(f);
+
+      // Animate marker position
+      AnimatePoint(f);
+
+      // Set div coordinates
+      SetDivLonLat(coordinate[0].toFixed(6), coordinate[1].toFixed(6));
+
+      // Get lon, lat
+      var coordinate = PointToLonLat(evt);
+      // Show popup
+      PopUp(coordinate[0], coordinate[1]);
+  });
+
+  function CenterMap(long, lat, zoom = 5)
+  {
+      console.log("New position Long: " + long + " Lat: " + lat);
+      map.getView().setCenter(ol.proj.transform([long, lat], 'EPSG:4326', 'EPSG:3857'));
+      map.getView().setZoom(zoom);
+  }
+
+  function SimpleMarker(lon, lat)
+  {
+      var layer = new ol.layer.Vector({
+          source: new ol.source.Vector({
+              features: [
+                  new ol.Feature({
+                      geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat]))
+                  })
+              ]
+          })
+      });
+      map.addLayer(layer);
+  }
+
+  function SetMarker(evt)
+  {
+      // clear
+      MapSource.clear();
+      var feature = new ol.Feature({
+          // Object
+          geometry: new ol.geom.Point(ol.proj.fromLonLat([evt.lon, evt.lat])),
+          // Event
+          //geometry: new ol.geom.Point(evt.coordinate)
+          name: 'Marker text',
+          desc: '<label>Details</label> <br> Latitude: ' + evt.lat + ' Longitude: ' + evt.lon
+      });
+      feature.setStyle(iconStyle);
+      MapSource.addFeature(feature);
+      // Center
+      CenterMap(evt.lon, evt.lat);
+      // Set div
+      SetDivLonLat(evt.lon, evt.lat);
+
+  }
+
+  function SetDivLonLat(lon,lat)
+  {
+      console.log(lon, lat, 'tak')
+      //var loc = document.getElementById('location');
+      //document.createElement('location')
+      //loc.value = lon + ',' + lat;
+      //console.log(loc, lon, lat);
+      //console.log(loc, lon, lat);
+  }
+
+
+  // Show marker
+  function MarkerOnTop(feature, show = false)
+  {
+      var style = feature.getStyle();
+      if(show){
+          style.zIndex = 9999;
+          style.zIndex_ = 9999;
+      }else{
+          style.zIndex = 999;
+          style.zIndex_ = 999;
+      }
+      console.log(style);
+      feature.setStyle(style);
+  }
+
+  // Animate marker from faeture
+  function AnimatePoint(feature, distance = 50, speed = 5)
+  {
+      console.log("Geometry: ", feature.getGeometry().getCoordinates());
+      // var point = new ol.geom.Point(ol.proj.fromLonLat([evt.lon, evt.lat]));
+      // Coordinates
+      var c = feature.getGeometry().getCoordinates();
+      var start = c[1];
+      var end = start + distance;
+      var curr = start;
+      var up = true;
+
+      window.setInterval(() => {
+          if(up == true)
+          {
+              curr = curr + speed;
+              var pos = [c[0], curr];
+              // console.log("Current: ", pos);
+              feature.getGeometry().setCoordinates(pos);
+              if(curr > end)
+              {
+                  up = false;
+              }
+          }else{
+              curr = curr - speed;
+              var pos = [c[0], curr];
+              // console.log("Current: ", pos);
+              feature.getGeometry().setCoordinates(pos);
+              if(curr < start)
+              {
+                  up = true;
+              }
+          }
+      }, 35);
+  }
+
+  function PopUp(lon, lat)
+  {
+      var location = new ol.geom.Point(lon, lat).transform('EPSG:4326', 'EPSG:3857');
+
+      console.log(document);
+      var container = document.getElementById('popup');
+      var content = document.getElementById('popup-content');
+      var closer = document.getElementById('popup-closer');
+
+      var overlay = new ol.Overlay({
+          element: container,
+          autoPan: true,
+          autoPanAnimation: {
+              duration: 250
+          }
+      });
+      overlay.setPosition(ol.proj.fromLonLat([lon, lat]));
+      map.addOverlay(overlay);
+
+      closer.onclick = function() {
+          overlay.setPosition(undefined);
+          closer.blur();
+          return false;
+      };
+  }
+
+  //const closer = document.getElementById('popup-closer');
+  //closer.onclick = function () {
+  //overlay.setPosition(undefined);
+  //closer.blur();
+  //return false;
+  //};
+
+  //const content = document.getElementById('popup-content');
+  //map.on('singleclick', function (evt) {
+  //  const coordinate = evt.coordinate;
+  //  const hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
 
     //content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
-    content.innerHTML = '<p>You clicked here:</p><code>' + coordinate + '</code>';
-    console.log(coordinate);
-    console.log(map.getView().getProjection());
+  //  content.innerHTML = '<p>You clicked here:</p><code>' + coordinate + '</code>';
+  //  console.log(coordinate);
+  //  console.log(map.getView().getProjection());
     //ol.Overlay.setPosition(coordinate);
     //ol.overlay.setPosition(ol.proj.fromLonLat([13.12456, 47.59397]));
-  });
+  //});
 
 
   update();
