@@ -94,144 +94,28 @@ window.onload = function () {
     return layer;
   };
 
-  /*
-    Create Icon
-  */
-  var lon = 21.002902;
-  var lat = 52.228850;
-  var MarkerIcon = new ol.Feature({
-      geometry: new ol.geom.Point(ol.proj.fromLonLat([lon,lat])),
-      name: 'Marker text',
-      desc: '<label>Details</label> <br> Latitude: ' + lat + ' Longitude: ' + lon
-  })
-  // Add icon style
-  MarkerIcon.setStyle(new ol.style.Style({
-      image: new ol.style.Icon({
-          anchor: [0.5, 50],
-          anchorXUnits: 'fraction',
-          anchorYUnits: 'pixels',
-          src: 'img/marker.png'
-          // ,scale: 0.4
-      })
-  }));
+  const closer = document.getElementById('popup-closer');
+  closer.onclick = function () {
+  overlay.setPosition(undefined);
+  closer.blur();
+  return false;
+  };
 
-
-  /*
-      Create marker icon
-  */
-  var iconStyle = new ol.style.Style({
-      image: new ol.style.Icon({
-          anchor: [0.5, 50],
-          anchorXUnits: 'fraction',
-          anchorYUnits: 'pixels',
-          opacity: 0.75,
-          src: 'images/marker.png'
-      }),
-      text: new ol.style.Text({
-          font: '12px Arial',
-          fill: new ol.style.Fill({ color: '#000' }),
-          stroke: new ol.style.Stroke({
-              color: '#fff', width: 2
-          }),
-          text: 'New marker text'
-      })
-  });
-
-  var MapSource = new ol.source.Vector({
-    features: [
-        MarkerIcon
-    ]
-  })
-  // Create map layer
-  var MapLayer = new ol.layer.Vector({
-    source: MapSource
-  });
-  // Set layer z-index
-  MapLayer.setZIndex(999);
-  // Add marker to layer
-  map.addLayer(MapLayer);
-
-
-  /*
-      Events
-  */
-  map.on('dblclick', function(evt)
-  // map.on('singleclick', function(evt)
-  {
-      var coordinatePretty = ol.coordinate.toStringHDMS(ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'), 2);
-      var coordinate = ol.proj.toLonLat(evt.coordinate);
-
-      console.log("Clicked at position: ", coordinatePretty, coordinate);
-      console.log("Clicked at position: ", evt.coordinate);
-
-      // Clear markers source
-      MapSource.clear();
-
-      // Add point
-      var f = new ol.Feature({
-          // From lon, lat
-          // new ol.geom.Point(ol.proj.fromLonLat([4.35247, 50.84673])),
-          // From event
-          geometry: new ol.geom.Point(evt.coordinate),
-          name: 'Marker text',
-          desc: '<label>Details</label> <br> Latitude: ' + coordinate[1].toFixed(6) + ' Longitude: ' + coordinate[0].toFixed(6)
-      });
-      f.setStyle(iconStyle);
-
-      // Add to source
-      MapSource.addFeature(f);
-
-      // Animate marker position
-      AnimatePoint(f);
-
-      // Set div coordinates
-      //SetDivLonLat(coordinate[0].toFixed(6), coordinate[1].toFixed(6));
-      console.log(evt, 'show here');
-
-      // Get lon, lat
-      var coordinate = PointToLonLat(evt);
-      // Show popup
-      PopUp(coordinate[0], coordinate[1]);
-  });
-
-
-  // On click
+  const content = document.getElementById('popup-content');
   map.on('singleclick', function (evt) {
-      // Show popup on marker click
-      var feature = map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
-          return feature;
-      });
+    const coordinate = evt.coordinate;
+    const hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
 
-      // Show popup on marker click
-      if (map.hasFeatureAtPixel(evt.pixel) === true)
-      {
-          var coordinate = evt.coordinate;
-          popup.setPosition(coordinate);
-          // Get marker description
-          content.innerHTML = feature.get('desc');
-      } else {
-          popup.setPosition(undefined);
-          //close.blur();
-      }
-      console.log("Marker clicked/hovered !!!");
+    //content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
+    content.innerHTML = '<p>You clicked here:</p><code>' + coordinate + '</code>';
+    console.log(coordinate);
+    console.log(map.getView().getProjection());
+    //ol.Overlay.setPosition(coordinate);
+    //ol.overlay.setPosition(ol.proj.fromLonLat([13.12456, 47.59397]));
   });
 
-  // Show overlay
-  popup.setPosition(ol.proj.fromLonLat([0, 0]));
-  // Hide overlay
-  popup.setPosition(undefined);
 
-  map.addOverlay(popup);
-
-  // Close/hide overlay popup
-  //close.onclick = function(undefined) {
-  //    popup.setPosition(undefined);
-  //    close.blur();
-  //    return false;
-  //};
-  
   update();
-  // ----------
 
   // Slider values are in 'days from present'.
   document.querySelector('#day-slider')
