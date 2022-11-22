@@ -1,0 +1,16 @@
+.pin {
+    top : 260px ;
+    left : 210px;
+    width:8%;
+    height:8%;
+    background-image:   url('http://www.clker.com/cliparts/W/0/g/a/W/E/map-pin-red.svg');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute; 
+  }
+
+.pin:hover {
+  cursor: pointer;
+  transform: translateX(-40%) scale(1.05);
+}
