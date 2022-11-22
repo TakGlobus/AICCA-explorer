@@ -185,7 +185,8 @@ window.onload = function () {
       AnimatePoint(f);
 
       // Set div coordinates
-      SetDivLonLat(coordinate[0].toFixed(6), coordinate[1].toFixed(6));
+      //SetDivLonLat(coordinate[0].toFixed(6), coordinate[1].toFixed(6));
+      console.log(evt, 'show here');
 
       // Get lon, lat
       var coordinate = PointToLonLat(evt);
@@ -210,7 +211,7 @@ window.onload = function () {
           content.innerHTML = feature.get('desc');
       } else {
           popup.setPosition(undefined);
-          close.blur();
+          //close.blur();
       }
       console.log("Marker clicked/hovered !!!");
   });
