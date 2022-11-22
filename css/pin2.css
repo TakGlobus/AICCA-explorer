@@ -33,16 +33,19 @@
 }
 .ol-popup {
     position: absolute;
-    background-color: white;
-    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.1));
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #cccccc2a;
-    bottom: 12px;
-    width: 210px;
-    transform: translate(-50%, 0%);
-    margin-bottom: 10px;
+    background-color: transparent;
+    background-image:   url('http://www.clker.com/cliparts/W/0/g/a/W/E/map-pin-red.svg');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display:block;
+    bottom: 0;
+    width: 0;
+    transform: translate(-1%, 1%);
+    margin-bottom: 0px;
+    border-color: transparent;
 }
+
 .ol-popup:after, .ol-popup:before {
     top: 100%;
     border: solid transparent;
@@ -54,17 +57,17 @@
 }
 
 .ol-popup:after {
-    border-top-color: white;
-    border-width: 10px;
-    left: 120px;
-    margin-left: -16px;
+    border-top-color: transparent;
+    border-width: 0px;
+    left: 0px;
+    margin-left: 0px;
 }
 
 .ol-popup:before {
-    border-top-color: #cccccc2a;
-    border-width: 11px;
-    left: 120px;
-    margin-left: -16px;
+    border-top-color: transparent;
+    border-width: 0px;
+    left: 0px;
+    margin-left: 0px;
 }
 .marker{
     background: #222 !important;
