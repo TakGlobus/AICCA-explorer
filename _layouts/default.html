@@ -130,6 +130,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a {% if current[1] == 'projects.html' %} class="nav-link active" 
+               {% else %} class="nav-link" {% endif %} href="projects.html">
+              Cloud Atlas
+            </a>
+          </li>
+          <li class="nav-item">
             <a {% if current[1] == 'publications.html' %} class="nav-link active" 
                {% else %} class="nav-link" {% endif %} 
                href="https://scholar.google.com/citations?hl=en&user=LLiE6ZUAAAAJ&view_op=list_works"

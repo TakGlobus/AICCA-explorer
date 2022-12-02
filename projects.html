@@ -1,0 +1,37 @@
+---
+layout: default
+title: Projects
+---
+
+{% assign project_div_class = "row row-cols-2 row-cols-md-3 row-cols-xl-4 project-card-deck align-items-center" %}
+
+<h1>AI-driven Cloud Classification Atlas</h1>
+<p>These are 42 unique unsupervised AI-generated cloud classes that show distinct cloud texture and physica properties
+    among different classes but homogeneous texture and properties within a same class.
+    Following figures show 20 example of True Color MODIS patch image for each cloud class.
+    Note that our machine learning model is trained on near-infrared to thermal range of radiances.
+    The true color images helps to figure how how AICCA discriminates between textures among different classes. 
+</p>
+
+<div class="{{ project_div_class }}">
+<!--
+    Note: add spatial distributions of cluster later
+-->
+
+    {% for image in site.static_files %}
+        {% if image.path contains 'images/projects' %}
+            <div class="card project-card zoom-1_1">
+                <div class="card-body">
+                    <img src="{{image.path}}" alt="atlas" style="width:100%">
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+<p> These 42 cloud classes are distributed over unique spatial patterns.  
+</p>
+
+<img src="images/spatial-2000-2021.jpg" alt="atlas" style="width:100%">
+
