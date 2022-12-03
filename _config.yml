@@ -75,6 +75,10 @@ kramdown:
 #   - vendor/gems/
 #   - vendor/ruby/
 
+# google analytics
+google_analytics: "G-2TWL9PML0V"
+
+
 include:
  - images
  - css
