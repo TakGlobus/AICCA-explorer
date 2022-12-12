@@ -1,0 +1,11 @@
+@article{kurihana2022aicca,
+    title={AICCA: AI-Driven Cloud Classification Atlas},
+    author={Kurihana, Takuya and Moyer, Elisabeth J and Foster, Ian T},
+    journal={Remote Sensing},
+    volume={14},
+    number={22},
+    pages={5690},
+    year={2022},
+    publisher={MDPI},
+    doi={10.3390/rs14225690},
+}

@@ -7,6 +7,15 @@ title: Main
   START of Carousel
 -->
 <script src="text/javascript/pub.js"></script>
+<script>
+      function unhide(divID) {
+          var item = document.getElementById(divID);
+          if (item) {
+              item.className=(item.className=='hidden')?'unhidden':'hidden';
+          }
+      }
+ </script>
+
 {% assign carouselItems = site.carousel | sort: 'order' %}
 <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel">
   
@@ -95,30 +104,97 @@ title: Main
 <hr>
 
 <h4 class="font-weight-bold">Featured Publications</h4>
-<div class="row">
+<div class="row">  
   <div class="col-lg-6">
     <h5>AICCA: AI-Driven Cloud Classification Atlas</h5>
     <p class="abstract">
       <h><strong>Abstract</strong></h>
       <p>Clouds play an important role in the Earth's energy budget, and their behavior is one of the largest uncertainties in future climate projections. 
-        Satellite observations should help in understanding cloud responses, but decades and petabytes of multispectral cloud imagery have to date received only limited use. 
-        This study describes a new analysis approach that reduces the dimensionality of satellite cloud observations by grouping them via a novel automated, unsupervised cloud classification technique 
-        based on a convolutional autoencoder, an artificial intelligence (AI) method good at identifying patterns in spatial data. 
         <span id="dots">...</span><span id="more">
+          Satellite observations should help in understanding cloud responses, but decades and petabytes of multispectral cloud imagery have to date received only limited use. 
+          This study describes a new analysis approach that reduces the dimensionality of satellite cloud observations by grouping them via a novel automated, unsupervised cloud classification technique 
+          based on a convolutional autoencoder, an artificial intelligence (AI) method good at identifying patterns in spatial data. 
           Our technique combines a rotation-invariant autoencoder and hierarchical agglomerative clustering to generate cloud clusters that capture meaningful distinctions among cloud textures, using only raw multispectral imagery as input. Cloud classes are therefore defined based on spectral properties and spatial textures without reliance on location, time/season, derived physical properties, or pre-designated class definitions. We use this approach to generate a unique new cloud dataset, the AI-driven cloud classification atlas (AICCA), which clusters 22 years of ocean images from the Moderate Resolution Imaging Spectroradiometer (MODIS) on NASA’s Aqua and Terra instruments—198 million patches, each roughly 100 km × 100 km (128 × 128 pixels)—into 42 AI-generated cloud classes, a number determined via a newly-developed stability protocol that we use to maximize richness of information while ensuring stable groupings of patches. AICCA thereby translates 801 TB of satellite images into 54.2 GB of class labels and cloud top and optical properties, a reduction by a factor of 15,000. The 42 AICCA classes produce meaningful spatio-temporal and physical distinctions and capture a greater variety of cloud types than do the nine International Satellite Cloud Climatology Project (ISCCP) categories—for example, multiple textures in the stratocumulus decks along the West coasts of North and South America. We conclude that our methodology has explanatory power, capturing regionally unique cloud classes and providing rich but tractable information for global analysis. 
           AICCA delivers the information from multi-spectral images in a compact form, enables data-driven diagnosis of patterns of cloud organization, provides insight into cloud evolution on timescales of hours to decades, and helps democratize climate research by facilitating access to core data.
       </span></p>
       <button onclick="myFunction()" id="myBtn">Read more</button>
     </p>
-    <div class="authors">Kurihana et al. 2022</div>
+    <div class="authors">Takuya Kurihana, Elisabeth J. Moyer , Ian T. Foster</div>
     <ul class="conf-list"><li><p class="conf">MDPI Remote Sensing 2022, 14(22), 5690; DOI:<i>10.3390/rs14225690</i></p></li></ul>
-    <a role="button" tabindex="0" href="https://www.mdpi.com/2072-4292/14/22/5690" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">PDF</a><br><br>
+    <a role="button" tabindex="0" href="https://www.mdpi.com/2072-4292/14/22/5690" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Paper</a>
+    <a role="button" tabindex="1" href="publications/kurihanaAICCA22.md" target="_blank" class="btn btn-primary btn-sm">Citation</a>
+    <a role="button" tabindex="2" href="https://drive.google.com/file/d/19V2wYHjQMJH5du15vz06sw6SoJKNSBZL/view?usp=share_link" target="_blank" class="btn btn-primary btn-sm">Poster</a>
   </div>
   <div class="col-lg-6">
     <img alt="kurihana2022aicca.png" class="img-fluid"
     src="images/publications/aicca-paper.png">
   </div>
 </div>
+<br><br>
+<div class="row">  
+  <div class="col-lg-6">
+    <h5>Insight into cloud processes from unsupervised classification with a rotationally invariant autoencoder</h5>
+    <p class="abstract">
+      <h><strong>Abstract</strong></h>
+      <p>Clouds play a critical role in the Earth's energy budget and their potential changes are one of the largest uncertainties in future climate projections. 
+        <span id="dots">...</span><span id="more">
+          However, the use of satellite observations to understand cloud feedbacks in a warming climate has been hampered by the simplicity of existing cloud classification schemes, 
+          which are based on single-pixel cloud properties rather than utilizing spatial structures and textures. 
+          Recent advances in computer vision enable the grouping of different patterns of images without using human-predefined labels, 
+          providing a novel means of automated cloud classification. This unsupervised learning approach allows discovery of unknown climate-relevant cloud patterns, 
+          and the automated processing of large datasets. We describe here the use of such methods to generate a new AI-driven Cloud Classification Atlas (AICCA), 
+          which leverages 22 years and 800 terabytes of MODIS satellite observations over the global ocean. We use a rotation-invariant cloud clustering (RICC) method 
+          to classify those observations into 42 AI-generated cloud class labels at ~100 km spatial resolution. 
+          As a case study, we use AICCA to examine a recent finding of decreasing cloudiness in a critical part of the subtropical stratocumulus deck, 
+          and show that the change is accompanied by strong trends in cloud classes.
+      </span></p>
+      <button onclick="myFunction()" id="myBtn">Read more</button>
+    </p>
+    <div class="authors">Takuya Kurihana, James Franke, Ian T. Foster, Ziwei Wang, Elisabeth J. Moyer</div>
+    <ul class="conf-list"><li><p class="conf"> The 36th conference on NeurIPS Machine Learning and the Physical Sciences workshop; DOI:<i>10.1109/TGRS.2021.3098008</i></p></li></ul>
+    <a role="button" tabindex="0" href="https://arxiv.org/abs/2211.00860" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Paper</a>
+    <a role="button" tabindex="1" href="publications/kurihana22insight.md" target="_blank" class="btn btn-primary btn-sm">Citation</a>
+    <a role="button" tabindex="2" href="https://drive.google.com/file/d/1TN3NaZQESwPqYYzXZkV5APpaaBuy2XSw/view?usp=share_link" target="_blank" class="btn btn-primary btn-sm">Poster</a>
+    <a role="button" tabindex="3" href="https://www.linkedin.com/feed/update/urn:li:activity:7004827761022312448/" target="_blank" class="btn btn-primary btn-sm">Linkdin</a>
+  </div>
+  <div class="col-lg-6">
+    <img alt="kurihana2022insight.png" class="img-fluid"
+    src="images/publications/neurips-paper.png">
+  </div>
+</div>
+<br><br>
+<div class="row">  
+  <div class="col-lg-6">
+    <h5>Data-Driven Cloud Clustering via a Rotationally Invariant Autoencoder</h5>
+    <p class="abstract">
+      <h><strong>Abstract</strong></h>
+      <p>Advanced satellite-borne remote sensing instruments produce high-resolution multispectral data for much of the globe at a daily cadence.
+        <span id="dots">...</span><span id="more">
+          These datasets open up the possibility of improved understanding of cloud dynamics and feedback, which remain the biggest source of uncertainty in global climate model projections. 
+          As a step toward answering these questions, we describe an automated rotation-invariant cloud clustering (RICC) method that leverages deep learning autoencoder technology to organize cloud imagery 
+          within large datasets in an unsupervised fashion, free from assumptions about predefined classes. We describe both the design and implementation of this method and its evaluation, 
+          which uses a sequence of testing protocols to determine whether the resulting clusters: 
+          1) are physically reasonable (i.e., embody scientifically relevant distinctions); 
+          2) capture information on spatial distributions, such as textures; 
+          3) are cohesive and separable in latent space; and 4) are rotationally invariant (i.e., insensitive to the orientation of an image). 
+          Results obtained when these evaluation protocols are applied to RICC outputs suggest that the resultant novel cloud clusters capture meaningful aspects of cloud physics, 
+          are appropriately spatially coherent, and are invariant to orientations of input images. 
+          Our results support the possibility of using an unsupervised data-driven approach for automated clustering and pattern discovery in cloud imagery.
+        </span></p>
+      <button onclick="myFunction()" id="myBtn">Read more</button>
+    </p>
+    <div class="authors">Takuya Kurihana, Elisabeth J. Moyer, Rebecca Willett, Davis Gilton, Ian T. Foster</div>
+    <ul class="conf-list"><li><p class="conf">IEEE Transactions on Geoscience and Remote Sensing, vol. 60, pp. 1-25, 2022, Art no. 4103325; DOI:<i>10.48550/arXiv.2211.00860</i></p></li></ul>
+    <a role="button" tabindex="0" href="https://ieeexplore.ieee.org/abstract/document/9497325" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Paper</a>
+    <a role="button" tabindex="1" href="publications/kurihanaRICC2021.md" target="_blank" class="btn btn-primary btn-sm">Citation</a>
+    <a role="button" tabindex="2" href="https://www.linkedin.com/feed/update/urn:li:activity:6826650263634501632/" target="_blank" class="btn btn-primary btn-sm">Linkdin</a>
+  </div>
+  <div class="col-lg-6">
+    <img alt="kurihana2021ricc.png" class="img-fluid"
+    src="images/publications/ricc-paper.png">
+  </div>
+</div>
+
 <hr>
 
 

@@ -1,0 +1,10 @@
+@article{kurihana2021data,
+  title={Data-driven cloud clustering via a rotationally invariant autoencoder},
+  author={Kurihana, Takuya and Moyer, Elisabeth and Willett, Rebecca and Gilton, Davis and Foster, Ian},
+  journal={IEEE Transactions on Geoscience and Remote Sensing},
+  volume={60},
+  pages={1--25},
+  year={2021},
+  publisher={IEEE},
+  doi={10.1109/TGRS.2021.3098008},
+}
