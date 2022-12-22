@@ -49,7 +49,6 @@
   <!-- My custom CSS files. -->
   <link rel="stylesheet" href="css/download.css" type="text/css">
   <link rel="stylesheet" href="css/pub.css" type="text/css">
-  <script src="text/javascript/pub.js"></script>
 
   <script src="js/jquery.min.js"></script>
   <script type="text/x-mathjax-config">
@@ -128,11 +127,14 @@
           <li class="nav-item">
             <a {% if current[1] == 'notebook.html' %} class="nav-link active" 
                {% else %} class="nav-link" {% endif %} 
-               href="https://notebooksharing.space/view/2249500c98c0a1cd8ff3490c75b11c9859125f748b278ebc8c157436a2e5f180#displayOptions=",
+               href="https://mybinder.org/v2/gh/TakGlobus/aicca-example/a96fb35fe7d1b6ae2cb316056626ef449310b670?urlpath=lab%2Ftree%2Faicca_v1_usage.ipynb",
                target="_blank">
                 Notebook
             </a>
           </li>
+          <!--
+            https://mybinder.org/v2/gh/TakGlobus/aicca-example/a96fb35fe7d1b6ae2cb316056626ef449310b670?urlpath=lab%2Ftree%2Faicca_v1_usage.ipynb
+          -->
           <li class="nav-item">
             <a {% if current[1] == 'projects.html' %} class="nav-link active" 
                {% else %} class="nav-link" {% endif %} href="projects.html">
